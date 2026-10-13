@@ -6,6 +6,12 @@ export const SITE = {
   github: "https://github.com/sammy440/gitmit",
   npm: "https://www.npmjs.com/package/@gitmit/cli",
   install: "npm install -g @gitmit/cli",
+  vscode: {
+    marketplace: "https://marketplace.visualstudio.com/items?itemName=gitmit.gitmit",
+    /** Opens the extension's page directly in VS Code. */
+    deepLink: "vscode:extension/gitmit.gitmit",
+    install: "code --install-extension gitmit.gitmit",
+  },
 };
 
 /** The pass-through API used only when a visitor brings their own key. */

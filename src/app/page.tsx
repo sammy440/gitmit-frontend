@@ -3,6 +3,8 @@ import background from "../../public/background.jpg";
 import { Demo } from "@/components/Demo";
 import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { CopyButton } from "@/components/CopyButton";
+import { VsCodeSteps } from "@/components/VsCodeSteps";
 import { InstallCommand } from "@/components/InstallCommand";
 import { SITE } from "@/lib/site";
 
@@ -83,6 +85,47 @@ export default function Home() {
           </Reveal>
           <Reveal className="mt-8" delay={0.1}>
             <Demo />
+          </Reveal>
+        </div>
+      </section>
+
+      <section id="vscode" className="scroll-mt-16 border-b border-border">
+        <div className="mx-auto max-w-6xl px-4 py-20">
+          <Reveal className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="font-mono text-sm text-accent">VS Code extension</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">Use it right in VS Code</h2>
+              <p className="mt-3 text-muted">
+                Generate messages and split messy changes from the Source Control panel. Same rules, same secret scan and
+                same team config as the command line, with keys kept in VS Code&apos;s encrypted storage.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:items-start lg:items-end">
+              <div className="flex flex-wrap gap-3 text-sm">
+                <a
+                  href={SITE.vscode.deepLink}
+                  className="rounded-md bg-accent px-4 py-2 font-semibold text-background hover:opacity-90"
+                >
+                  Open in VS Code
+                </a>
+                <a
+                  href={SITE.vscode.marketplace}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-md border border-border px-4 py-2 font-medium hover:border-accent"
+                >
+                  View on Marketplace
+                </a>
+              </div>
+              <div className="flex items-center gap-2 font-mono text-xs text-muted">
+                <span className="select-none">$</span>
+                <code>{SITE.vscode.install}</code>
+                <CopyButton text={SITE.vscode.install} />
+              </div>
+            </div>
+          </Reveal>
+          <Reveal className="mt-10" delay={0.1}>
+            <VsCodeSteps />
           </Reveal>
         </div>
       </section>

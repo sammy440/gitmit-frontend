@@ -5,7 +5,7 @@ import { GitHubIcon, NpmIcon } from "./icons";
 export function Header() {
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/85 backdrop-blur">
-      <nav className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4 text-sm">
+      <nav className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4 text-sm sm:gap-6">
         <Link href="/" aria-label={`${SITE.name} home`} className="flex items-center transition-opacity hover:opacity-80">
           {/* The transparent logo used as a mask, so its color follows the theme. */}
           <span
@@ -13,9 +13,12 @@ export function Header() {
             className="block h-7 w-[105px] bg-logo [mask-image:url(/logo-wordmark.png)] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain]"
           />
         </Link>
-        <div className="flex items-center gap-5 text-muted">
+        <div className="flex items-center gap-3.5 whitespace-nowrap text-muted sm:gap-5">
           <Link href="/#demo" className="hover:text-foreground">
             Demo
+          </Link>
+          <Link href="/#vscode" className="hover:text-foreground">
+            VS Code
           </Link>
           <Link href="/docs/getting-started" className="hover:text-foreground">
             Docs
