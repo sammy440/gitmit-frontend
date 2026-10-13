@@ -10,6 +10,7 @@
 </p>
 
 <p align="center">
+  <a href="https://gitmit-frontend.vercel.app"><strong>Live site</strong></a> ·
   <a href="https://github.com/sammy440/gitmit">gitmit</a> ·
   <a href="https://www.npmjs.com/package/@gitmit/cli">@gitmit/cli on npm</a> ·
   <a href="#running-locally">Run locally</a> ·
