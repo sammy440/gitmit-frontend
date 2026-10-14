@@ -23,12 +23,12 @@ export default async function DocPage({ params }: PageProps<"/docs/[slug]">) {
 
   return (
     <article>
-      <h1 className="text-3xl font-semibold tracking-tight">{doc.title}</h1>
+      <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{doc.title}</h1>
       <p className="mt-2 text-muted">{doc.description}</p>
       <div className="mt-8">
         <Markdown source={doc.body} />
       </div>
-      <nav className="mt-12 flex gap-4 border-t border-border pt-6 text-sm">
+      <nav className="mt-12 flex flex-wrap gap-4 border-t border-border pt-6 text-sm">
         {previous && (
           <Link href={`/docs/${previous.slug}`} className="text-muted hover:text-foreground">
             ← {previous.title}

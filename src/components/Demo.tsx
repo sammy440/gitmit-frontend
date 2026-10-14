@@ -7,11 +7,12 @@ import { useEffect, useRef, useState } from "react";
 import { AnalysisFlow } from "./AnalysisFlow";
 import { RunFlow, type FlowStep } from "./RunFlow";
 import { EXAMPLES } from "@/content/examples";
+import { getToken, signInUrl } from "@/lib/account";
 import { API_URL } from "@/lib/site";
 import { CopyButton } from "./CopyButton";
 import { DiffView } from "./DiffView";
 
-type Mode = "offline" | "key";
+type Mode = "offline" | "key" | "account";
 type Task = "messages" | "split";
 type AiProvider = "openai" | "anthropic";
 
@@ -90,6 +91,10 @@ export function Demo() {
     setFlow(null);
     if (!analysis) {
       setError(new DemoError("Paste a diff first. Run `git diff --staged` in your repository and paste the output."));
+      return;
+    }
+    if (mode === "account" && !getToken()) {
+      setError(new DemoError("Sign in with GitHub to use the key saved in your gitmit account."));
       return;
     }
     if (mode === "key" && !apiKey.trim()) {
@@ -183,10 +188,11 @@ export function Demo() {
     try {
       response = await fetch(`${API_URL}/api/${task === "messages" ? "generate" : "split"}`, {
         method: "POST",
-        headers: { "content-type": "application/json", authorization: `Bearer ${apiKey.trim()}` },
+        // In account mode the session token goes instead of a key; the API uses the key saved in the account.
+        headers: { "content-type": "application/json", authorization: `Bearer ${mode === "account" ? getToken() : apiKey.trim()}` },
         body: JSON.stringify({
           diff,
-          provider,
+          provider: mode === "account" ? "account" : provider,
           ...(model.trim() ? { model: model.trim() } : {}),
           secrets: redact ? "redact" : "abort",
         }),
@@ -255,7 +261,7 @@ export function Demo() {
         {/* Mode */}
         <div className="rounded-lg border border-border p-3">
           <div className="flex gap-1 rounded-md bg-surface p-1 text-sm" role="tablist" aria-label="Mode">
-            {(["offline", "key"] as const).map((m) => (
+            {(["offline", "account", "key"] as const).map((m) => (
               <button
                 key={m}
                 type="button"
@@ -264,7 +270,7 @@ export function Demo() {
                 onClick={() => setMode(m)}
                 className={`flex-1 rounded px-3 py-1.5 transition ${mode === m ? "bg-background font-medium shadow-sm" : "text-muted hover:text-foreground"}`}
               >
-                {m === "offline" ? "Offline (free)" : "Your API key"}
+                {m === "offline" ? "Offline (free)" : m === "account" ? "Your account" : "Paste a key"}
               </button>
             ))}
           </div>
@@ -272,6 +278,8 @@ export function Demo() {
             <p className="mt-3 text-sm text-muted">
               Runs entirely in your browser with gitmit&apos;s rules. Nothing is sent anywhere.
             </p>
+          ) : mode === "account" ? (
+            <AccountMode />
           ) : (
             <div className="mt-3 grid gap-2 text-sm sm:grid-cols-[auto_1fr]">
               <select
@@ -482,6 +490,7 @@ interface Flow {
 const STEP_LABELS: Record<Mode, Record<Task, string[]>> = {
   offline: { messages: ["Summarize", "Write", "Validate"], split: ["Find hunks", "Group", "Write messages"] },
   key: { messages: ["Secret scan", "AI provider", "Validate"], split: ["Secret scan", "AI planner", "Write messages"] },
+  account: { messages: ["Secret scan", "AI provider", "Validate"], split: ["Secret scan", "AI planner", "Write messages"] },
 };
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -510,4 +519,31 @@ function hash(text: string): number {
   let h = 5381;
   for (let i = 0; i < text.length; i++) h = ((h << 5) + h + text.charCodeAt(i)) | 0;
   return h;
+}
+
+/** The "Your account" mode panel: signed in uses the saved key; signed out offers GitHub sign-in. */
+function AccountMode() {
+  const [signedIn, setSignedIn] = useState<boolean | null>(null);
+  useEffect(() => {
+    const update = () => setSignedIn(Boolean(getToken()));
+    update();
+    window.addEventListener("gitmit-session", update);
+    return () => window.removeEventListener("gitmit-session", update);
+  }, []);
+  if (signedIn === null) return <p className="mt-3 text-sm text-muted">Checking your account…</p>;
+  return signedIn ? (
+    <p className="mt-3 text-sm text-muted">
+      Uses the API key saved in your gitmit account. The diff is scanned for secrets before it reaches the AI.{" "}
+      <Link href="/account" className="underline underline-offset-2 hover:text-foreground">
+        Manage your keys
+      </Link>
+    </p>
+  ) : (
+    <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-muted">
+      <span>Save your key once and use it here, in the CLI and in VS Code.</span>
+      <a href={signInUrl("/#demo")} className="rounded-md bg-foreground px-3 py-1.5 font-semibold text-background hover:opacity-90">
+        Sign in with GitHub
+      </a>
+    </div>
+  );
 }

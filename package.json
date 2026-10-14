@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@gitmit/core": "^0.4.0",
+    "@gitmit/core": "^0.5.0",
     "motion": "^14.2.0",
     "next": "16.4.0",
     "react": "19.3.0",

@@ -43,17 +43,11 @@ export function RunFlow({ steps, startedAt, finishedAt }: { steps: FlowStep[]; s
           {finishedAt ? (failed ? "stopped" : "done") : "running"} · {elapsed.toFixed(2)} s
         </span>
       </div>
-      <ol className="mt-3 flex items-center">
+      <ol className="mt-4 grid gap-2" style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}>
         {steps.map((step, i) => (
-          <li key={step.label} className="flex flex-1 items-center last:flex-none">
-            <div className="flex items-center gap-2">
-              <StepDot state={step.state} />
-              <span className={`text-xs font-medium ${step.state === "pending" ? "text-muted" : step.state === "error" ? "text-del-text" : ""}`}>
-                {step.label}
-              </span>
-            </div>
+          <li key={step.label} className="relative">
             {i < steps.length - 1 && (
-              <div className="mx-3 h-px flex-1 overflow-hidden bg-border">
+              <div className="absolute left-[calc(50%+14px)] right-[calc(-50%+14px)] top-[11px] h-px overflow-hidden bg-border">
                 <motion.div
                   className="h-full origin-left bg-accent"
                   initial={false}
@@ -62,6 +56,16 @@ export function RunFlow({ steps, startedAt, finishedAt }: { steps: FlowStep[]; s
                 />
               </div>
             )}
+            <div className="flex flex-col items-center text-center">
+              <StepDot state={step.state} />
+              <span
+                className={`mt-1.5 text-[11px] font-medium leading-tight ${
+                  step.state === "pending" ? "text-muted" : step.state === "error" ? "text-del-text" : ""
+                }`}
+              >
+                {step.label}
+              </span>
+            </div>
           </li>
         ))}
       </ol>

@@ -6,7 +6,7 @@ export function InstallCommand({ tone = "default" }: { tone?: "default" | "dark"
   const dark = tone === "dark";
   return (
     <div
-      className={`flex items-center gap-3 rounded-lg border px-4 py-3 font-mono text-sm ${
+      className={`flex items-center gap-3 rounded-lg border px-3 py-3 font-mono text-[13px] sm:px-4 sm:text-sm ${
         dark ? "border-white/15 bg-black/40 text-white backdrop-blur-md" : "border-border bg-surface"
       }`}
     >

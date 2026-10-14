@@ -61,7 +61,7 @@ export function AnalysisFlow({ analysis, runId, durationMs }: { analysis: Analys
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
           </span>
-          live · {durationMs < 1 ? "<1" : durationMs.toFixed(1)} ms in your browser
+          live · {durationMs < 1 ? "<1" : durationMs.toFixed(1)} ms<span className="hidden sm:inline"> in your browser</span>
         </span>
       </div>
 
