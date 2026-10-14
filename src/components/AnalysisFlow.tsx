@@ -15,11 +15,7 @@ const CATEGORY_STYLE: Record<string, string> = {
   ci: "bg-amber-500/15 text-amber-700 dark:text-amber-300",
 };
 
-/**
- * "What the rules see", animated as a live request flow: each pipeline step
- * lights up in turn, and its result lands when the step completes. Give it a
- * new `key` per analysis so the flow starts over.
- */
+/** "What the rules see" as an animated pipeline; give it a new `key` per analysis to restart. */
 export function AnalysisFlow({ analysis, runId, durationMs }: { analysis: Analysis; runId: number; durationMs: number }) {
   // 0 = nothing done yet; n = the first n steps are done.
   const [done, setDone] = useState(0);

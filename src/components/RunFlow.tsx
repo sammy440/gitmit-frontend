@@ -9,10 +9,7 @@ export interface FlowStep {
   state: StepState;
 }
 
-/**
- * The request in flight: each step of the run with its live state, and a
- * running clock while it works.
- */
+/** The request in flight: each step's live state and a running clock. */
 export function RunFlow({ steps, startedAt, finishedAt }: { steps: FlowStep[]; startedAt: number; finishedAt?: number }) {
   const [now, setNow] = useState(startedAt);
 

@@ -63,9 +63,7 @@ export function Demo() {
   const [showDiff, setShowDiff] = useState(false);
   const [flow, setFlow] = useState<Flow | null>(null);
 
-  // Rules-only analysis runs locally and never leaves the page. It re-runs shortly after typing
-  // stops, so the flow animation doesn't restart on every keystroke.
-  // The first run happens right after load (not during render, so server and browser agree).
+  // Rules-only analysis runs locally, debounced and first run after mount.
   const [live, setLive] = useState<LiveAnalysis | null>(null);
   const firstRun = useRef(true);
   useEffect(() => {

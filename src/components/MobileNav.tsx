@@ -5,10 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { NavLink } from "./NavLink";
 
-/**
- * The menu below 768px: a button that opens a panel under the header.
- * Closes on link tap, Escape, page change, or when the screen grows to desktop.
- */
+/** The mobile menu: closes on link tap, Escape, page change, or when the screen grows to desktop. */
 export function MobileNav({
   links,
   children,
@@ -20,8 +17,7 @@ export function MobileNav({
   const pathname = usePathname();
   const panelId = useId();
 
-  // Close when the page changes. Adjusting state during render is React's
-  // recommended way to reset state on a prop change.
+  // Close when the page changes (resetting state during render, as React recommends).
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
     setLastPath(pathname);

@@ -12,11 +12,7 @@ const ERRORS: Record<string, string> = {
   failed: "Something went wrong while signing in. Please try again.",
 };
 
-/**
- * The API sends the browser here after GitHub sign-in, with the session in
- * the URL fragment (never sent to any server). Store it, then remove it from
- * the address bar and history.
- */
+/** Stores the session from the URL fragment after GitHub sign-in, then removes it from the address bar. */
 export function SignInCallback() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);

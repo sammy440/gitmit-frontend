@@ -18,6 +18,7 @@ PAGES = pages = [
   ("providers", "AI providers", "OpenAI, Anthropic, Ollama or fully offline: set up your keys.", ["Choosing an AI provider"]),
   ("commands", "Commands", "Every command and option, including scripts and CI.", ["Commands"]),
   ("splitting", "Splitting commits", "Turn one messy set of changes into focused commits, safely.", ["Splitting messy changes"]),
+  ("pull-requests", "Pull requests", "Write the title and description for your branch, and open it.", ["Pull requests"]),
   ("git-hook", "The git hook", "Get a suggestion every time you run git commit.", ["The git hook"]),
   ("configuration", "Configuration", "Share settings with your team, and every option explained.", ["Team configuration"]),
   ("commitlint", "commitlint", "Follow the commit rules your repository already enforces.", ["commitlint"]),

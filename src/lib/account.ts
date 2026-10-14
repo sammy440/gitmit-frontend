@@ -2,11 +2,7 @@
 
 import { API_URL } from "./site";
 
-/**
- * The website's side of gitmit accounts. The session token from GitHub
- * sign-in is kept in this browser's localStorage and sent to the gitmit API
- * as a bearer token. Saved API keys are never sent back to the browser.
- */
+/** Gitmit accounts in the browser: the session lives in localStorage; saved keys never come back. */
 
 const STORAGE_KEY = "gitmit.session";
 
