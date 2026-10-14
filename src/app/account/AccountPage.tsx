@@ -18,7 +18,7 @@ const PROVIDERS: { id: KeyProvider; name: string; placeholder: string; models: s
   },
 ];
 
-const CLIENT_LABEL = { web: "Website", cli: "Command line", vscode: "VS Code" } as const;
+const CLIENT_LABEL = { web: "Website", cli: "Command line", vscode: "Editor" } as const;
 
 type State = { status: "loading" } | { status: "signed-out" } | { status: "ready"; account: Account } | { status: "error"; message: string };
 
@@ -67,7 +67,7 @@ function SignedOut() {
       <h1 className="text-3xl font-semibold tracking-tight">Your gitmit account</h1>
       <p className="mt-3 max-w-2xl text-muted">
         Save your OpenAI or Anthropic key once, and use it everywhere: on this website, in the <code className="font-mono">gitmit</code>{" "}
-        command and in VS Code. No more pasting keys.
+        command and in your editor (VS Code, Cursor, Windsurf, VSCodium). No more pasting keys.
       </p>
       <a
         href={signInUrl("/account")}
@@ -80,7 +80,7 @@ function SignedOut() {
         {[
           ["Write-only keys", "Once saved, your key can't be read back, not even by you. You'll only ever see its last four characters."],
           ["Encrypted at rest", "Keys are encrypted with AES-256-GCM. The encryption key lives only in the server's environment, never in the database."],
-          ["Your code stays local", "The CLI and VS Code scan and summarize your changes on your machine. Only that summary is relayed to the AI, never your diff."],
+          ["Your code stays local", "The CLI and the editor extension scan and summarize your changes on your machine. Only that summary is relayed to the AI, never your diff."],
           ["Delete any time", "Remove a key, sign out a device, or delete your account and everything in it, instantly."],
         ].map(([title, body]) => (
           <li key={title} className="rounded-lg border border-border p-4">
@@ -148,7 +148,7 @@ function SignedIn({ account, reload, onSignedOut }: { account: Account; reload: 
             <p className="mt-2 text-xs text-muted">Then use gitmit as usual. A local key in your environment still takes priority.</p>
           </div>
           <div className="rounded-lg border border-border p-4">
-            <p className="font-medium">VS Code</p>
+            <p className="font-medium">VS Code, Cursor, Windsurf</p>
             <p className="mt-3 text-sm text-muted">
               Run <span className="font-medium text-foreground">gitmit: Sign In with GitHub</span> from the command palette (
               <kbd className="font-mono text-xs">⇧⌘P</kbd>).

@@ -7,7 +7,7 @@ import { NavLink } from "./NavLink";
 /** Links shared by the desktop nav and the mobile menu. */
 export const NAV_LINKS = [
   { href: "/#demo", label: "Demo" },
-  { href: "/#vscode", label: "VS Code" },
+  { href: "/#vscode", label: "Editors" },
   { href: "/docs/getting-started", label: "Docs", match: "/docs" },
   { href: "/account", label: "Account", match: "/account" },
 ] as const;

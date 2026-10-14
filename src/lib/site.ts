@@ -12,6 +12,8 @@ export const SITE = {
     deepLink: "vscode:extension/gitmit.gitmit",
     install: "code --install-extension gitmit.gitmit",
   },
+  /** Where Cursor, Windsurf, VSCodium and other VS Code-based editors get extensions. */
+  openVsx: "https://open-vsx.org/extension/gitmit/gitmit",
 };
 
 /** The pass-through API used only when a visitor brings their own key. */
