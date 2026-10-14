@@ -19,6 +19,7 @@ PAGES = pages = [
   ("commands", "Commands", "Every command and option, including scripts and CI.", ["Commands"]),
   ("splitting", "Splitting commits", "Turn one messy set of changes into focused commits, safely.", ["Splitting messy changes"]),
   ("pull-requests", "Pull requests", "Write the title and description for your branch, and open it.", ["Pull requests"]),
+  ("releases", "Releases", "Changelog, next version, tag and GitHub release from your commits.", ["Releases"]),
   ("git-hook", "The git hook", "Get a suggestion every time you run git commit.", ["The git hook"]),
   ("configuration", "Configuration", "Share settings with your team, and every option explained.", ["Team configuration"]),
   ("commitlint", "commitlint", "Follow the commit rules your repository already enforces.", ["commitlint"]),
